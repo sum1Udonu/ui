@@ -85,30 +85,60 @@ jobs:
     #               }
     #             }"
 
-    # GAs
+    # # GAs
+    #   - name: Deploy rosen app
+    #     if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'rosen/') }}
+    #     uses: amondnet/vercel-action@v25
+    #     with:
+    #       vercel-token: ${{ env.VERCEL_TOKEN }}
+    #       vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+    #       vercel-project-id: ${{ env.ROSEN_PROJECT_ID }}
+    #       vercel-args: "--prod"
+
+    #   - name: Deploy guard app
+    #     if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'guard/') }}
+    #     uses: amondnet/vercel-action@v25
+    #     with:
+    #       vercel-token: ${{ env.VERCEL_TOKEN }}
+    #       vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+    #       vercel-project-id: ${{ env.GUARD_PROJECT_ID }}
+    #       vercel-args: "--prod"
+
+    #   - name: Deploy watcher app
+    #     if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'watcher/') }}
+    #     uses: amondnet/vercel-action@v25
+    #     with:
+    #       vercel-token: ${{ env.VERCEL_TOKEN }}
+    #       vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+    #       vercel-project-id: ${{ env.WATCHER_PROJECT_ID }}
+    #       vercel-args: "--prod"
+
+
+
+
       - name: Deploy rosen app
         if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'rosen/') }}
-        uses: amondnet/vercel-action@v25
+        uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
-          vercel-token: ${{ env.VERCEL_TOKEN }}
-          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ env.ROSEN_PROJECT_ID }}
-          vercel-args: "--prod"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ env.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.ROSEN_PROJECT_ID }}
 
       - name: Deploy guard app
         if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'guard/') }}
-        uses: amondnet/vercel-action@v25
+        uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
-          vercel-token: ${{ env.VERCEL_TOKEN }}
-          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ env.GUARD_PROJECT_ID }}
-          vercel-args: "--prod"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ env.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.GUARD_PROJECT_ID }}
 
       - name: Deploy watcher app
         if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'watcher/') }}
-        uses: amondnet/vercel-action@v25
+        uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
-          vercel-token: ${{ env.VERCEL_TOKEN }}
-          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ env.WATCHER_PROJECT_ID }}
-          vercel-args: "--prod"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ env.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.WATCHER_PROJECT_ID }}
