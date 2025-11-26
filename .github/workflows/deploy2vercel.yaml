@@ -36,79 +36,79 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-    # rest api
+    # # rest api
+    #   - name: Deploy rosen app
+    #     if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'rosen/') }}
+    #     run: |
+    #       curl -sS -X POST https://api.vercel.com/v13/deployments \
+    #             -H "Authorization: Bearer $VERCEL_TOKEN" \
+    #             -H "Content-Type: application/json" \
+    #             -d "{
+    #               \"name\": \"$ROSEN_PROJECT\",
+    #               \"gitSource\": {
+    #                 \"type\": \"github\",
+    #                 \"repoId\": $REPO_ID,
+    #                 \"ref\": \"$REF\",
+    #                 \"sha\": \"$SHA\"
+    #               }
+    #             }"
+
+    #   - name: Deploy guard app
+    #     if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'guard/') }}
+    #     run: |
+    #       curl -sS -X POST https://api.vercel.com/v13/deployments \
+    #             -H "Authorization: Bearer $VERCEL_TOKEN" \
+    #             -H "Content-Type: application/json" \
+    #             -d "{
+    #               \"name\": \"$GUARD_PROJECT\",
+    #               \"gitSource\": {
+    #                 \"type\": \"github\",
+    #                 \"repoId\": $REPO_ID,
+    #                 \"ref\": \"$REF\",
+    #                 \"sha\": \"$SHA\"
+    #               }
+    #             }"
+
+    #   - name: Deploy watcher app
+    #     if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'watcher/') }}
+    #     run: |
+    #       curl -sS -X POST https://api.vercel.com/v13/deployments \
+    #             -H "Authorization: Bearer $VERCEL_TOKEN" \
+    #             -H "Content-Type: application/json" \
+    #             -d "{
+    #               \"name\": \"$WATCHER_PROJECT\",
+    #               \"gitSource\": {
+    #                 \"type\": \"github\",
+    #                 \"repoId\": $REPO_ID,
+    #                 \"ref\": \"$REF\",
+    #                 \"sha\": \"$SHA\"
+    #               }
+    #             }"
+
+    # GAs
       - name: Deploy rosen app
         if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'rosen/') }}
-        run: |
-          curl -sS -X POST https://api.vercel.com/v13/deployments \
-                -H "Authorization: Bearer $VERCEL_TOKEN" \
-                -H "Content-Type: application/json" \
-                -d "{
-                  \"name\": \"$ROSEN_PROJECT\",
-                  \"gitSource\": {
-                    \"type\": \"github\",
-                    \"repoId\": $REPO_ID,
-                    \"ref\": \"$REF\",
-                    \"sha\": \"$SHA\"
-                  }
-                }"
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ env.VERCEL_TOKEN }}
+          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ env.ROSEN_PROJECT_ID }}
+          vercel-args: "--prod"
 
       - name: Deploy guard app
         if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'guard/') }}
-        run: |
-          curl -sS -X POST https://api.vercel.com/v13/deployments \
-                -H "Authorization: Bearer $VERCEL_TOKEN" \
-                -H "Content-Type: application/json" \
-                -d "{
-                  \"name\": \"$GUARD_PROJECT\",
-                  \"gitSource\": {
-                    \"type\": \"github\",
-                    \"repoId\": $REPO_ID,
-                    \"ref\": \"$REF\",
-                    \"sha\": \"$SHA\"
-                  }
-                }"
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ env.VERCEL_TOKEN }}
+          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ env.GUARD_PROJECT_ID }}
+          vercel-args: "--prod"
 
       - name: Deploy watcher app
         if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'watcher/') }}
-        run: |
-          curl -sS -X POST https://api.vercel.com/v13/deployments \
-                -H "Authorization: Bearer $VERCEL_TOKEN" \
-                -H "Content-Type: application/json" \
-                -d "{
-                  \"name\": \"$WATCHER_PROJECT\",
-                  \"gitSource\": {
-                    \"type\": \"github\",
-                    \"repoId\": $REPO_ID,
-                    \"ref\": \"$REF\",
-                    \"sha\": \"$SHA\"
-                  }
-                }"
-
-    # GAs
-      # - name: Deploy rosen app
-      #   if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'rosen/') }}
-      #   uses: amondnet/vercel-action@v25
-      #   with:
-      #     vercel-token: $VERCEL_TOKEN
-      #     vercel-org-id: $VERCEL_ORG_ID
-      #     vercel-project-id: $ROSEN_PROJECT_ID
-      #     vercel-args: "--prod"
-
-      # - name: Deploy guard app
-      #   if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'guard/') }}
-      #   uses: amondnet/vercel-action@v25
-      #   with:
-      #     vercel-token: $VERCEL_TOKEN
-      #     vercel-org-id: $VERCEL_ORG_ID
-      #     vercel-project-id: $GUARD_PROJECT_ID
-      #     vercel-args: "--prod"
-
-      # - name: Deploy watcher app
-      #   if: ${{ github.ref_name == 'dev' || github.ref_name == 'master' || startsWith(github.ref_name, 'all/') || startsWith(github.ref_name, 'watcher/') }}
-      #   uses: amondnet/vercel-action@v25
-      #   with:
-      #     vercel-token: $VERCEL_TOKEN
-      #     vercel-org-id: $VERCEL_ORG_ID
-      #     vercel-project-id: $WATCHER_PROJECT_ID
-      #     vercel-args: "--prod"
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ env.VERCEL_TOKEN }}
+          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ env.WATCHER_PROJECT_ID }}
+          vercel-args: "--prod"
